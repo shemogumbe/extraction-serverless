@@ -1,5 +1,7 @@
 import json
-import extract
+import uuid
+
+import boto3
 
 
 def home(event, context):
@@ -15,12 +17,21 @@ def home(event, context):
 
 
 def front(event, context):
-    extraction = extract.extract(event.files['file'], 'front')
-    print('front', extraction['data'])
-    return extraction
+    body = json.loads(event['body'])
+    resp = {
+        'statusCode': 200,
+        'body': "success"
+    }
+    # extraction = extract.extract(event.files['file'], 'front')
+    # print('front', extraction['data'])
+    return resp
 
 
 def rear(event, context):
-    extraction = extract.extract(event.files['file'], 'rear')
-    print('rear', extraction['data'])
-    return extraction
+    resp = {
+        'statusCode': 200,
+        'body': "success"
+    }
+    # extraction = extract.extract(event.files['file'], 'front')
+    # print('front', extraction['data'])
+    return resp

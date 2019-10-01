@@ -35,17 +35,3 @@ def extract_data(google_ocr_response, front_or_rear):
     if len(req_text):
         return req_text
     return [('None',)]
-
-
-def main():
-    path = './images/rear3.jpg'
-    files = glob.glob(path)
-    for file_name in files:
-        with open(file_name, 'rb') as file:
-            print(file_name)
-            extraction = extract(file, 'rear')
-            print(extraction)
-
-
-if __name__ == '__main__':
-    main()
