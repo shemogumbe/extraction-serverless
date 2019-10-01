@@ -60,7 +60,7 @@ def front(event, context):
             'body': {'error': 'Invalid data'}
         }
         return resp
-    extraction = extract.extract(event['image'])
+    extraction = extract(event['image'])
     resp = {
         'statusCode': 200,
         'body': extraction
@@ -76,7 +76,7 @@ def rear(event, context):
             'body': {'error': 'Invalid data'}
         }
         return resp
-    extraction = extract.extract(event['image'])
+    extraction = extract(event['image'])
     resp = {
         'statusCode': 200,
         'body': extraction
