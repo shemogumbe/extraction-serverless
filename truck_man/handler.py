@@ -53,10 +53,7 @@ def home(event, context):
 
 
 def front(event, context):
-    resp = {
-        'statusCode': '200',
-        'body': 'On our way forward'
-    }
+
     if not event['image']:
         resp = {
             'statusCode': 400,
@@ -64,15 +61,25 @@ def front(event, context):
         }
         return resp
     extraction = extract.extract(event['image'])
+    resp = {
+        'statusCode': 200,
+        'body': extraction
+    }
 
     return resp
 
 
 def rear(event, context):
+    if not event['image']:
+        resp = {
+            'statusCode': 400,
+            'body': {'error': 'Invalid data'}
+        }
+        return resp
+    extraction = extract.extract(event['image'])
     resp = {
         'statusCode': 200,
-        'body': event
+        'body': extraction
     }
-    # extraction = extract.extract(event.files['file'], 'front')
-    # print('front', extraction['data'])
+
     return resp
