@@ -1,9 +1,13 @@
+from google.cloud import vision
 import json
 import uuid
 
 import boto3
-from google.cloud import vision
 import re
+
+dynamodb = boto3.resource('dynamodb')
+car_table = dynamodb.Table('front')
+container_table = dynamodb.Table('rear')
 
 
 def extract(file, front_or_rear):
@@ -61,9 +65,14 @@ def front(event, context):
         }
         return resp
     extraction = extract(event['image'])
+    car_table.put_item(
+        Item={
+            'registration_number': extraction
+        }
+    )
     resp = {
         'statusCode': 200,
-        'body': extraction
+        'body': "success"
     }
 
     return resp
@@ -77,6 +86,11 @@ def rear(event, context):
         }
         return resp
     extraction = extract(event['image'])
+    container_table.put_item(
+        Item={
+            'registration_number': extraction
+        }
+    )
     resp = {
         'statusCode': 200,
         'body': extraction
